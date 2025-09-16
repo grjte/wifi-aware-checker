@@ -1,9 +1,11 @@
 package live.ditto.wifiawarechecker
 
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.net.wifi.aware.WifiAwareManager
 import android.os.Build
 import android.os.Bundle
 import android.widget.Button
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val hasFeatureTextView: TextView = findViewById(R.id.has_feature_text_view)
+        val pairingSupportTextView: TextView = findViewById(R.id.pairing_support_text_view)
         val iconImageView: ImageView = findViewById(R.id.icon_image_view)
         val modelAndManufacturerTextView: TextView =
             findViewById(R.id.model_and_manufacturer_text_view)
@@ -52,6 +55,34 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             iconImageView.setImageDrawable(getDrawable(R.drawable.ic_wifi_yes))
+            
+            // Check for WiFi Aware Pairing support
+            var pairingSupported = false
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                val wifiAwareManager = getSystemService(Context.WIFI_AWARE_SERVICE) as? WifiAwareManager
+                if (wifiAwareManager != null) {
+                    val characteristics = wifiAwareManager.characteristics
+                    pairingSupported = characteristics?.isAwarePairingSupported ?: false
+                }
+            }
+            
+            if (pairingSupported) {
+                pairingSupportTextView.text = getString(R.string.label_pairing_supported)
+                pairingSupportTextView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorAvailable
+                    )
+                )
+            } else {
+                pairingSupportTextView.text = getString(R.string.label_pairing_not_supported)
+                pairingSupportTextView.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.colorUnavailable
+                    )
+                )
+            }
         } else {
             hasFeatureTextView.text = getString(R.string.label_wifi_aware_unavailable)
             hasFeatureTextView.setTextColor(
@@ -61,6 +92,13 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             iconImageView.setImageDrawable(getDrawable(R.drawable.ic_wifi_no))
+            pairingSupportTextView.text = getString(R.string.label_pairing_not_supported)
+            pairingSupportTextView.setTextColor(
+                ContextCompat.getColor(
+                    this,
+                    R.color.colorUnavailable
+                )
+            )
         }
     }
 

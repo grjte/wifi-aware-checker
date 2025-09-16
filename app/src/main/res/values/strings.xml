@@ -5,4 +5,6 @@
     <string name="label_android_version">Android Version: %1$s | Version Release %2$s</string>
     <string name="label_wifi_aware_available">WiFi Aware Available</string>
     <string name="label_wifi_aware_unavailable">WiFi Aware Unavailable</string>
+    <string name="label_pairing_supported">Pairing Supported</string>
+    <string name="label_pairing_not_supported">Pairing Not Supported</string>
 </resources>
