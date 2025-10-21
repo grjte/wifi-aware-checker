@@ -1,5 +1,13 @@
 # WiFi Aware Checker Android App
 
+This is a fork of Ditto's original app that adds a check to see if the device supports pairing for Wi-Fi Aware, which was added in Wi-Fi Aware version 4. Apple's implementation of the Wi-Fi Aware framework requires devices to pair before beginning the Wi-Fi Aware discovery phase, so cross-platform Wi-Fi Aware connections would require Android devices that support pairing as well. At the time of this implementation, I have not yet found any Android devices that support pairing. 
+
+Learn more about Wi-Fi Aware implementation details and cross-platform compatibility [here](https://hackmd.io/@grjte/cross-platform-wifi-aware).
+
+The original Ditto README continues below.
+
+-----
+
 Brought to you by [Ditto - Sync without Internet](https://www.ditto.com).
 
 ## [Download this app on Google Play Store](https://play.google.com/store/apps/details?id=live.ditto.wifiawarechecker)
@@ -28,7 +36,3 @@ WiFi Aware is a supported peer-to-peer transport in [Ditto](https://www.ditto.co
 2. Run this project on your Android 8.0 or higher device with Android studio! 
 
 ![WiFi Aware Checker](https://media.giphy.com/media/kfXxeX3zidS1yzKVgC/giphy.gif)
-
-## Support
-
-If you run into any issues with this app, please contact Ditto Support (<support@ditto.com>)
